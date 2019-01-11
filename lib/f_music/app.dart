@@ -13,13 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color.fromRGBO(34, 34, 34, 1)
       ),
-      home: new DefaultTextStyle(
-        style: new TextStyle(
-          fontSize: 14.0,
-          color: Colors.white70,
-        ),
-        child: new TabbedApp(),
-      )
+      home: new TabbedApp()
     );
   }
 }
@@ -33,7 +27,13 @@ class TabbedApp extends StatelessWidget{
         backgroundColor: Theme.of(context).primaryColor,
         appBar: new AppBar(
           title: const Text('FMusic'),
+          elevation: 0.0,
           bottom: new TabBar(
+            isScrollable: false,
+            unselectedLabelColor: Colors.white,
+            labelColor: Color.fromRGBO(255, 205, 50, 1),
+            indicatorSize: TabBarIndicatorSize.label,
+            indicatorColor: Color.fromRGBO(255, 205, 50, 1),
             tabs: tabPages.map((TabPage tabPage){
               return new Tab(
                 text: tabPage.title,
@@ -45,8 +45,8 @@ class TabbedApp extends StatelessWidget{
               icon: Icon(
                 Icons.account_circle
               ),
-              onPressed: (){
-                print('account');
+              onPressed :  () async{
+                
               },
             )
           ],

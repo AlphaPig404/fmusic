@@ -1,13 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:f_music/utils/http.dart';
+import 'package:f_music/model/getRankList.dart';
 
 class RankPage extends StatelessWidget{
-  RankPage({Key key}):super(key: key);
   final List mockData = List.filled(100, 1);
+  Future<RankRes> getRankList() async{
+    final http = new MyHttp('c.y.qq.com','/v8/fcg-bin/fcg_myqq_toplist.fcg',{
+      'g_tk': '5381',
+      'uid': '0',
+      'format': 'json',
+      'inCharset': 'utf-8',
+      'outCharset': 'utf-8',
+      'notice': '0',
+      'platform': 'h5',
+      'needNewCode': '1',
+      '_': '1547199635353'
+    });
+    final json = await http.get();
+    return RankRes.fromJson(json);
+  }
+
   @override
     Widget build(BuildContext context) {
-      // TODO: implement build
+      return FutureBuilder<RankRes>(
+         future: getRankList(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return new RankList(snapshot.data.list);
+            }else if (snapshot.hasError) {
+                return new Text("${snapshot.error}");
+              }
+              // By default, show a loading spinner
+              return new Center(
+                child: SizedBox(
+                  height: 10.0,
+                  width: 10.0,
+                  child: new CircularProgressIndicator(
+                        valueColor: new AlwaysStoppedAnimation<Color>(Color.fromRGBO(255, 205, 50, 1)),
+                      ),
+                  )
+            );
+          }
+       );
+       
+    }
+}
+
+class RankList extends StatelessWidget{
+  final List<Rank> listData;
+  RankList(this.listData);
+  @override
+    Widget build(BuildContext context) {
       return new ListView(
-        children: mockData.map((i){
+        children: listData.map((rank){
           return new Container(
             margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             color: Color.fromRGBO(51, 51, 51, 1),
@@ -17,7 +62,7 @@ class RankPage extends StatelessWidget{
                   width: 100,
                   height: 100,
                   child: new Image.network(
-                    'http://y.gtimg.cn/music/photo_new/T003R300x300M000003hGUkO14Ru3k.jpg'
+                    rank.picUrl
                   ),
                 ),
                 new Container(
@@ -25,9 +70,12 @@ class RankPage extends StatelessWidget{
                   child: new Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: List.filled(3, 1).map((i){
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: rank.songList.map((song){
+                      final singleName= song.singername;
+                      final songName = song.songname;
                       return new Text(
-                          '1 不为谁而作的歌-林俊杰',
+                          '$songName-$singleName',
                           style: new TextStyle(
                             color: Color.fromRGBO(255, 255, 255, 0.3)
                         )
