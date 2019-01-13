@@ -80,6 +80,7 @@ class MusicList extends StatelessWidget{
                         children: <Widget>[
                           new Container(
                             width: 50,
+                            height: 50,
                             margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                             child: new Image.network(
                               album.imgurl

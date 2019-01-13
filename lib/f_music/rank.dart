@@ -3,7 +3,6 @@ import 'package:f_music/utils/http.dart';
 import 'package:f_music/model/getRankList.dart';
 
 class RankPage extends StatelessWidget{
-  final List mockData = List.filled(100, 1);
   Future<RankRes> getRankList() async{
     final http = new MyHttp('c.y.qq.com','/v8/fcg-bin/fcg_myqq_toplist.fcg',{
       'g_tk': '5381',
