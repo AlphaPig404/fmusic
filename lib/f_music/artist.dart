@@ -8,7 +8,6 @@ class ArtistPage extends StatelessWidget{
   final List<String> indexList = List.from(['热','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']);
   @override
     Widget build(BuildContext context) {
-      // TODO: implement build
       return new Container(
         child: new Stack(
           children: <Widget>[
@@ -99,7 +98,7 @@ class ArtistList extends StatelessWidget{
                 ),
               ),
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Singer()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Singer(artist: artist)));
               },
             );
         }).toList()

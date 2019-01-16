@@ -4,7 +4,6 @@ class SearchPage extends StatelessWidget{
   const SearchPage({Key key}):super(key: key);
   @override
     Widget build(BuildContext context) {
-      // TODO: implement build
       return new Container(
         child: new Column(
           children: <Widget>[
@@ -28,7 +27,6 @@ class SearchPage extends StatelessWidget{
 class SearchResult extends StatelessWidget{
   @override
     Widget build(BuildContext context) {
-      // TODO: implement build
       return new Container(
         padding: const EdgeInsets.all(10),
         child: new Column(
